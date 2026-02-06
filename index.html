@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>💖 Valentine Invitation 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 350px;
+      width: 90%;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      padding: 12px 26px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      position: absolute;
+      transition: all 0.2s ease;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+      left: 30px;
+      bottom: 20px;
+    }
+
+    #no {
+      background: #adb5bd;
+      color: white;
+      right: 30px;
+      bottom: 20px;
+    }
+
+    .heart {
+      position: fixed;
+      font-size: 26px;
+      animation: fallDown 5s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-80px) scale(1.5); }
+    }
+
+    @keyframes fallDown {
+  0% {
+    opacity: 1;
+    transform: translateY(-50px) translateX(0) scale(1);
+  }
+  50% {
+    transform: translateY(50vh) translateX(20px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) translateX(-20px) scale(1.2);
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h1>ว่าไงไอ้หนู💕</h1>
+    <p>สนใจไปวันวาเลนไทน์กับพี่ไหมจ๊ะ?</p>
+    <div id="message" style="min-height:24px;color:#ff4d6d;font-size:18px;margin-bottom:10px;"></div>
+    <div class="buttons">
+      <button id="yes">Yes 💖</button>
+      <button id="no">No 🙈</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const card = document.getElementById('card');
+
+    noBtn.addEventListener('mouseenter', dodge);
+    noBtn.addEventListener('click', dodge);
+
+    function dodge() {
+      const messages = ['กดเพื่อ? 🤔', 'เอาจริง? 😳', 'แกเป็นไรอะ? 🥺', 'กดทำเหี้ยอะไร?? 💔'];
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      document.getElementById('message').textContent = msg;
+
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = cardRect.width - btnRect.width;
+      const maxY = cardRect.height - btnRect.height;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    }
+
+    yesBtn.addEventListener('click', () => {
+      card.innerHTML = `
+        <h1>เย้ !!!! 😍</h1>
+        <p>เจอกันวันวาเลนไทน์คับน้อง แต่ ยังไม่ได้วางแผนนะ 5555 💘</p>
+      `;
+      for (let i = 0; i < 40; i++) createHeart();
+    });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = Math.random() > 2.5 ? '💖' : '💘';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.top = '-30px';
+      heart.style.animationDuration = 2 + Math.random() * 2 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+  </script>
+</body>
+</html>
